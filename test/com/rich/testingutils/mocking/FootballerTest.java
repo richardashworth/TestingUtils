@@ -2,9 +2,6 @@ package com.rich.testingutils.mocking;
 
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static junit.framework.Assert.assertEquals;
 
 public class FootballerTest {
@@ -17,10 +14,4 @@ public class FootballerTest {
         assertEquals(footballer.getGameGoalsRatio(), Double.valueOf(0.0));
     }
 
-    @Test
-    public void testGetGameGoalsRatioWithCustomValues() {
-        Map<String, Object> customValuesMap = new HashMap<String, Object>();
-        customValuesMap.pu
-
-    }
 }

@@ -1,6 +1,5 @@
 package com.rich.testingutils.mocking;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
@@ -17,7 +16,7 @@ public class MockObjectPopulator {
     private DefaultValues defaultValues = new DefaultValues();
 
     public void populateMockObject(Object obj) {
-        populateMockObjectWithCustomValues(obj);
+        populateMockObjectWithCustomValues(obj, null);
 
     }
 
@@ -29,9 +28,9 @@ public class MockObjectPopulator {
                 //get field name from mutator and lookup in map
                 try {
                     defaultValue = getDefaultValueByType(type);
-                if (defaultValue != null) {
-                    f.invoke(obj, defaultValue);
-                }
+                    if (defaultValue != null) {
+                        f.invoke(obj, defaultValue);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     fail();
