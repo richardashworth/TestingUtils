@@ -9,8 +9,8 @@ public class Footballer {
     private Integer goalsScored;
     private Boolean isCaptain;
 
-    public double getGameGoalsRatio(){
-        return gamesPlayed / goalsScored;
+    public double getAvgGoalsPerGame() {
+        return (double) goalsScored / gamesPlayed;
     }
 
     public String getName() {

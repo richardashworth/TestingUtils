@@ -5,12 +5,6 @@ import java.util.Map;
 
 import static org.junit.Assert.fail;
 
-/**
- * Created by IntelliJ IDEA.
- * User: rich
- * Date: 23/12/2011
- * Time: 18:40
- */
 public class MockObjectPopulator {
 
     private DefaultValues defaultValues = new DefaultValues();
@@ -21,23 +15,32 @@ public class MockObjectPopulator {
     }
 
     public void populateMockObjectWithCustomValues(Object obj, Map<String, Object> fieldMap) {
-        for (Method f : obj.getClass().getDeclaredMethods()) {
-            if (f.getName().startsWith("set")) {
-                Class type = f.getParameterTypes()[0];
-                Object defaultValue;
-                //get field name from mutator and lookup in map
-                try {
-                    defaultValue = getDefaultValueByType(type);
-                    if (defaultValue != null) {
-                        f.invoke(obj, defaultValue);
+        try {
+            for (Method f : obj.getClass().getDeclaredMethods()) {
+                String methodName = f.getName();
+                if (methodName.startsWith("set")) {
+                    Class type = f.getParameterTypes()[0];
+                    Object value;
+                    String fieldName = methodName.replace("set", "");
+                    fieldName = fieldName.substring(0, 1).toLowerCase() + fieldName.substring(1);
+
+                    if (fieldMap.containsKey(fieldName)) {
+                        value = fieldMap.get(fieldName);
+                    } else {
+                        value = getDefaultValueByType(type);
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    fail();
+
+                    if (value != null) {
+                        f.invoke(obj, value);
+                    }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
         }
     }
+
 
     private Object getDefaultValueByType(Class aClass) throws NoSuchMethodException {
 
