@@ -1,4 +1,4 @@
-package com.rich.testingutils.mocking;
+package com.richashworth.testingutils.mocking;
 
 import java.util.HashMap;
 import java.util.Map;
